@@ -1,8 +1,15 @@
 import React from 'react'
 import logo from './logo.svg'
 import './App.css'
+import useSWR from 'swr'
 
 function App() {
+  const {data, isLoading} = useSWR('pokemon?limit=20')
+
+  if (isLoading) return <div>Loading...</div>
+  if (!data) throw new Error()
+
+  console.log({data})
   return (
     <div className="App">
       <header className="App-header">
