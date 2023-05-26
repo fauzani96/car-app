@@ -8,6 +8,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Root from './routes/root'
 import ErrorPage from './pages/error/Error.component'
 import Home from './pages/home/Home.component'
+import Cars from './pages/cars/Cars.component'
 
 const router = createBrowserRouter([
   {
@@ -18,13 +19,7 @@ const router = createBrowserRouter([
       {path: '/', element: <Home />},
       {
         path: 'cars',
-        element: (
-          <div>
-            hello carz hello carzhello carzhello carzhello carzhello carz hello
-            carz hello carz hello carz hello carz hello carz hello carz hello
-            carz hello carz
-          </div>
-        ),
+        element: <Cars />,
       },
     ],
   },

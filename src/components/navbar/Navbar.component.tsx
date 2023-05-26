@@ -11,24 +11,39 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import * as React from 'react'
 import SearchIcon from '@mui/icons-material/Search'
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
+import {Avatar, Tooltip} from '@mui/material'
 
 const pages = ['cars', 'about', 'blog']
+const settings = ['Profile', 'Account', 'Logout']
 
 function Navbar() {
+  let location = useLocation()
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null,
+  )
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
+  }
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget)
   }
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
   }
 
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null)
+  }
+
+  const isHome = location.pathname === '/'
+
   return (
-    <AppBar position="static" color="transparent" elevation={0}>
-      <Container maxWidth="xl" sx={{color: 'white'}}>
+    <AppBar position="static" color={'transparent'} elevation={0}>
+      <Container maxWidth="xl" sx={{color: isHome ? 'white' : 'unset'}}>
         <Toolbar disableGutters>
           <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}} />
           <Typography
@@ -111,7 +126,11 @@ function Navbar() {
                 // onClick={handleCloseNavMenu}
                 component={Link}
                 to={page}
-                sx={{my: 2, display: 'block', color: 'white'}}
+                sx={{
+                  my: 2,
+                  display: 'block',
+                  color: isHome ? 'white' : 'unset',
+                }}
               >
                 {page}
               </Button>
@@ -122,8 +141,36 @@ function Navbar() {
             <IconButton size="large" aria-label="search" color="inherit">
               <SearchIcon />
             </IconButton>
-            <Button sx={{mr: {lg: 2}, color: 'white'}}>Login</Button>
-            <Button variant="contained">Sign Up</Button>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                <Avatar
+                  alt="Remy Sharp"
+                  src="https://i.pinimg.com/736x/5f/d6/81/5fd681af5fbae3ed347d37b5b0c9e3de.jpg"
+                />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{mt: '45px'}}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
         </Toolbar>
       </Container>
