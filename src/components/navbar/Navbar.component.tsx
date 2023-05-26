@@ -10,7 +10,6 @@ import MenuItem from '@mui/material/MenuItem'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import * as React from 'react'
-import SearchIcon from '@mui/icons-material/Search'
 import {Link, useLocation} from 'react-router-dom'
 import {Avatar, Tooltip} from '@mui/material'
 

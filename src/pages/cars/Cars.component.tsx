@@ -1,16 +1,19 @@
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import {
   Box,
   Chip,
   Container,
   IconButton,
+  MenuItem,
   Paper,
   Skeleton,
+  TextField,
   Typography,
 } from '@mui/material'
-import useSWR from 'swr'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import {galeryData} from '../../constants/Galery.constant'
+import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
+import useSWR from 'swr'
+import {galeryData} from '../../constants/Galery.constant'
 
 interface CarsResponse {
   city_mpg: number
@@ -19,7 +22,7 @@ interface CarsResponse {
   cylinders: number
   displacement: number
   drive: string
-  fuel_type: string
+  fuel_type: keyof typeof FuelType
   highway_mpg: number
   make: string
   model: string
@@ -28,15 +31,28 @@ interface CarsResponse {
 }
 
 enum Transmission {
-  a = 'Automatic',
-  m = 'Manual',
+  a = 'AT',
+  m = 'MT',
+}
+
+enum FuelType {
+  gas = 'success',
+  diesel = 'error',
+  electricity = 'primary',
 }
 
 export default function Cars() {
   const navigate = useNavigate()
+  const [limit] = useState<number>(50)
+  const [make, setMake] = useState<string>('')
+  const [model, setModel] = useState<string>('')
+  const [fuel, setFuel] = useState<string>('gas')
+  const [trans, setTrans] = useState<string>('')
   const {data, isLoading} = useSWR<CarsResponse[]>(
-    '?limit=8&model=brio&transmission=a',
+    `?limit=${limit}&make=${make}&model=${model}&transmission=${trans}&fuel_type=${fuel}`,
   )
+
+  console.log({FuelType})
 
   return (
     <Container maxWidth="xl" sx={{minHeight: 'calc(100vh - 120px)', my: 4}}>
@@ -47,7 +63,48 @@ export default function Cars() {
           </IconButton>
           <Typography variant="h5">List of cars</Typography>
         </Box>
-        <Box>this is filter</Box>
+        <Box sx={{display: 'flex', gap: 1}}>
+          <TextField
+            sx={{width: 150}}
+            size="small"
+            placeholder="Make (e.g. audi)."
+            value={make}
+            onChange={(e) => setMake(e.target.value)}
+          />
+          <TextField
+            sx={{width: 150}}
+            size="small"
+            placeholder="Model (e.g. a4)."
+            value={model}
+            onChange={(e) => setModel(e.target.value)}
+          />
+
+          <TextField
+            label="Fuel Type"
+            select
+            sx={{width: 150}}
+            size="small"
+            value={fuel}
+            onChange={(e) => setFuel(e.target.value)}
+          >
+            <MenuItem value="">All fuel</MenuItem>
+            <MenuItem value="gas">Gas</MenuItem>
+            <MenuItem value="diesel">Diesel</MenuItem>
+            <MenuItem value="electricity">Electricity</MenuItem>
+          </TextField>
+          <TextField
+            label="Transmission"
+            select
+            sx={{width: 150}}
+            size="small"
+            value={trans}
+            onChange={(e) => setTrans(e.target.value)}
+          >
+            <MenuItem value="">All transmission</MenuItem>
+            <MenuItem value="a">Automatic</MenuItem>
+            <MenuItem value="m">Manual</MenuItem>
+          </TextField>
+        </Box>
       </Box>
       <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
         {isLoading
@@ -104,13 +161,12 @@ export default function Cars() {
                         }}
                       >
                         <Typography variant="body2">
-                          {Transmission[res.transmission]}, {res.cylinders}{' '}
-                          Cylinder(s)
+                          {Transmission[res.transmission]}, {res.class}
                         </Typography>
                         <Chip
-                          label={res.class}
+                          label={res.fuel_type}
                           sx={{textTransform: 'capitalize'}}
-                          color="primary"
+                          color={FuelType[res.fuel_type]}
                           size="small"
                         />
                       </Box>
