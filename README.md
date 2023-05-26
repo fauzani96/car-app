@@ -4,7 +4,8 @@ A simple project for fulfilling requirement for
 [Finology Group](https://finology-group.com/) recruitment as a Frontend Engineer
 
 - Currently the only working features is Home and Cars page. 
-- The car list and the image may be different, because I don't find any free API services that providing Cars information with image.
+- The car list and the image may be different because I don't find any free API services that provide Cars information with images.
+- The car list page is already a dynamic feature, which is doing a fetch API process.
 
 In the project directory, you can run:
 
