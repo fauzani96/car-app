@@ -32,17 +32,6 @@ enum Transmission {
   m = 'Manual',
 }
 
-const Loading = () => {
-  return (
-    <>
-      <Skeleton variant="rounded" sx={{width: 1 / 4}} height={300} />
-      <Skeleton variant="rounded" sx={{width: 1 / 4}} height={300} />
-      <Skeleton variant="rounded" sx={{width: 1 / 4}} height={300} />
-      <Skeleton variant="rounded" sx={{width: 1 / 4}} height={300} />
-    </>
-  )
-}
-
 export default function Cars() {
   const navigate = useNavigate()
   const {data, isLoading} = useSWR<CarsResponse[]>(
@@ -61,70 +50,75 @@ export default function Cars() {
         <Box>this is filter</Box>
       </Box>
       <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
-        {isLoading ? (
-          //   <Loading />
-          <>
-            <Skeleton variant="rounded" sx={{width: 1 / 4}} height={300} />
-            <Skeleton variant="rounded" sx={{width: 1 / 4}} height={300} />
-            <Skeleton variant="rounded" sx={{width: 1 / 4}} height={300} />
-            <Skeleton variant="rounded" sx={{width: 1 / 4}} height={300} />
-          </>
-        ) : (
-          data?.map((res) => {
-            const randomInt = Math.floor(Math.random() * 7)
-            return (
+        {isLoading
+          ? Array.from(new Array(8)).map((res, i) => (
               <Box sx={{width: 1 / 4}}>
-                <Paper sx={{m: 1}}>
-                  <img
-                    src={galeryData[randomInt].img}
-                    style={{width: '100%', height: 150, objectFit: 'cover'}}
-                    alt={`${res.year}-${res.make}`}
-                  />
-                  <Box sx={{p: 2}}>
-                    <Typography
-                      sx={{fontSize: 14}}
-                      color="text.secondary"
-                      gutterBottom
-                    >
-                      {res.year}
-                    </Typography>
-                    <Typography
-                      variant="h6"
-                      component="div"
-                      sx={{textTransform: 'capitalize'}}
-                    >
-                      {res.model}
-                    </Typography>
-                    <Typography
-                      sx={{mb: 1, textTransform: 'capitalize'}}
-                      color="text.secondary"
-                    >
-                      {res.make}
-                    </Typography>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Typography variant="body2">
-                        {Transmission[res.transmission]}, {res.cylinders}{' '}
-                        Cylinder(s)
-                      </Typography>
-                      <Chip
-                        label={res.class}
-                        sx={{textTransform: 'capitalize'}}
-                        color="primary"
-                        size="small"
-                      />
-                    </Box>
-                  </Box>
-                </Paper>
+                <Skeleton
+                  variant="rounded"
+                  sx={{margin: 1}}
+                  height={300}
+                  key={i}
+                />
               </Box>
-            )
-          })
-        )}
+            ))
+          : data?.map((res) => {
+              const randomInt = Math.floor(Math.random() * 7)
+              return (
+                <Box sx={{width: 1 / 4}}>
+                  <Paper sx={{m: 1}}>
+                    <img
+                      src={`${galeryData[randomInt].img}?w=248&fit=crop&auto=format`}
+                      style={{
+                        width: '100%',
+                        height: 150,
+                        objectFit: 'cover',
+                      }}
+                      alt={`${res.year}-${res.make}`}
+                    />
+                    <Box sx={{p: 2}}>
+                      <Typography
+                        sx={{fontSize: 14}}
+                        color="text.secondary"
+                        gutterBottom
+                      >
+                        {res.year}
+                      </Typography>
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{textTransform: 'capitalize'}}
+                      >
+                        {res.model}
+                      </Typography>
+                      <Typography
+                        sx={{mb: 1, textTransform: 'capitalize'}}
+                        color="text.secondary"
+                      >
+                        {res.make}
+                      </Typography>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Typography variant="body2">
+                          {Transmission[res.transmission]}, {res.cylinders}{' '}
+                          Cylinder(s)
+                        </Typography>
+                        <Chip
+                          label={res.class}
+                          sx={{textTransform: 'capitalize'}}
+                          color="primary"
+                          size="small"
+                        />
+                      </Box>
+                    </Box>
+                  </Paper>
+                </Box>
+              )
+            })}
       </Box>
     </Container>
   )
