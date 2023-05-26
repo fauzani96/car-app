@@ -14,6 +14,7 @@ import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import useSWR from 'swr'
 import {galeryData} from '../../constants/Galery.constant'
+import useDebounced from '../../hooks/useDebounced'
 
 interface CarsResponse {
   city_mpg: number
@@ -45,14 +46,14 @@ export default function Cars() {
   const navigate = useNavigate()
   const [limit] = useState<number>(50)
   const [make, setMake] = useState<string>('')
+  const [debouncedMake] = useDebounced(make, 1000)
   const [model, setModel] = useState<string>('')
+  const [debouncedModel] = useDebounced(model, 1000)
   const [fuel, setFuel] = useState<string>('gas')
   const [trans, setTrans] = useState<string>('')
   const {data, isLoading} = useSWR<CarsResponse[]>(
-    `?limit=${limit}&make=${make}&model=${model}&transmission=${trans}&fuel_type=${fuel}`,
+    `?limit=${limit}&make=${debouncedMake}&model=${debouncedModel}&transmission=${trans}&fuel_type=${fuel}`,
   )
-
-  console.log({FuelType})
 
   return (
     <Container maxWidth="xl" sx={{minHeight: 'calc(100vh - 120px)', my: 4}}>
