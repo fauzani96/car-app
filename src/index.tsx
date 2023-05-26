@@ -9,6 +9,11 @@ import Root from './routes/root'
 import ErrorPage from './pages/error/Error.component'
 import Home from './pages/home/Home.component'
 import Cars from './pages/cars/Cars.component'
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from '@mui/material/styles'
 
 const router = createBrowserRouter([
   {
@@ -25,6 +30,9 @@ const router = createBrowserRouter([
   },
 ])
 
+let theme = createTheme()
+theme = responsiveFontSizes(theme)
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
@@ -33,7 +41,9 @@ root.render(
         fetcher,
       }}
     >
-      <RouterProvider router={router} />
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </SWRConfig>
   </React.StrictMode>,
 )

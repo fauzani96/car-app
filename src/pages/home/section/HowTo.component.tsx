@@ -45,7 +45,14 @@ const HowTo = () => {
           can improve.
         </Typography>
       </Box>
-      <Box sx={{display: 'flex', mt: 4, gap: 4}}>
+      <Box
+        sx={{
+          display: 'flex',
+          mt: 4,
+          gap: 4,
+          flexDirection: {xs: 'column', md: 'row'},
+        }}
+      >
         {steps.map((step, i) => (
           <Box
             key={i}
@@ -58,7 +65,7 @@ const HowTo = () => {
               borderColor: 'rgba(0, 0, 0, 0.12)',
               py: 2,
               px: 6,
-              width: 1 / 3,
+              width: {md: 1 / 3},
             }}
           >
             <Box
@@ -94,7 +101,7 @@ const HowTo = () => {
         <Typography variant="h6" color="text.secondary" paragraph>
           Sign up and we'll send the best deal to you
         </Typography>
-        <Box sx={{display: 'flex', width: 1 / 2, gap: 2}}>
+        <Box sx={{display: 'flex', width: {md: 1 / 2}, gap: 2}}>
           <TextField
             id="outlined-basic"
             label="Enter your email address"

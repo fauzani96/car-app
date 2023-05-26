@@ -4,7 +4,9 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
+  Theme,
   Typography,
+  useMediaQuery,
 } from '@mui/material'
 
 import CorvetteLogo from '../../../assets/images/corvette.svg'
@@ -19,12 +21,13 @@ import {Link} from 'react-router-dom'
 import {galeryData} from '../../../constants/Galery.constant'
 
 const Galery = () => {
+  const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'))
   return (
     <Box sx={{textAlign: 'center'}}>
       <Typography variant="h4" gutterBottom sx={{mt: 8, mb: 4}}>
         Cars Galery
       </Typography>
-      <ImageList variant="masonry" cols={3} gap={10}>
+      <ImageList variant="masonry" cols={matches ? 3 : 2} gap={10}>
         {galeryData.map((item) => (
           <ImageListItem
             key={item.img}
