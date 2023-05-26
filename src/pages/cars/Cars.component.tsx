@@ -59,7 +59,15 @@ export default function Cars() {
 
   return (
     <Container maxWidth="xl" sx={{minHeight: 'calc(100vh - 120px)', my: 4}}>
-      <Box sx={{display: 'flex', justifyContent: 'space-between', mb: 3}}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: {xs: 'column', md: 'row'},
+          justifyContent: 'space-between',
+          mb: 3,
+          gap: 4,
+        }}
+      >
         <Box sx={{display: 'flex', gap: 2, alignItems: 'center'}}>
           <IconButton color="primary" onClick={() => navigate(-1)}>
             <ArrowBackIcon />
@@ -112,7 +120,7 @@ export default function Cars() {
       <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
         {isLoading ? (
           Array.from(new Array(8)).map((res, i) => (
-            <Box sx={{width: 1 / 4}}>
+            <Box sx={{width: {xs: 1 / 2, md: 1 / 4}}}>
               <Skeleton
                 variant="rounded"
                 sx={{margin: 1}}
@@ -135,7 +143,7 @@ export default function Cars() {
           data?.map((res) => {
             const randomInt = Math.floor(Math.random() * 7)
             return (
-              <Box sx={{width: 1 / 4}}>
+              <Box sx={{width: {xs: 1 / 2, md: 1 / 4}}}>
                 <Paper sx={{m: 1}}>
                   <img
                     src={`${galeryData[randomInt].img}?w=248&fit=crop&auto=format`}
@@ -171,7 +179,9 @@ export default function Cars() {
                       sx={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        alignItems: 'center',
+                        alignItems: {xs: 'start', md: 'center'},
+                        flexDirection: {xs: 'column', md: 'row'},
+                        gap: 1,
                       }}
                     >
                       <Typography variant="body2">
