@@ -15,6 +15,7 @@ import {useNavigate} from 'react-router-dom'
 import useSWR from 'swr'
 import {galeryData} from '../../constants/Galery.constant'
 import useDebounced from '../../hooks/useDebounced'
+import NoCar from '../../assets/images/car-crash.png'
 
 interface CarsResponse {
   city_mpg: number
@@ -51,7 +52,8 @@ export default function Cars() {
   const [debouncedModel] = useDebounced(model, 1000)
   const [fuel, setFuel] = useState<string>('gas')
   const [trans, setTrans] = useState<string>('')
-  const {data, isLoading} = useSWR<CarsResponse[]>(
+
+  const {data, isLoading, error} = useSWR<CarsResponse[]>(
     `?limit=${limit}&make=${debouncedMake}&model=${debouncedModel}&transmission=${trans}&fuel_type=${fuel}`,
   )
 
@@ -108,74 +110,86 @@ export default function Cars() {
         </Box>
       </Box>
       <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
-        {isLoading
-          ? Array.from(new Array(8)).map((res, i) => (
+        {isLoading ? (
+          Array.from(new Array(8)).map((res, i) => (
+            <Box sx={{width: 1 / 4}}>
+              <Skeleton
+                variant="rounded"
+                sx={{margin: 1}}
+                height={300}
+                key={i}
+              />
+            </Box>
+          ))
+        ) : data?.length === 0 || error ? (
+          <Box sx={{width: 1, textAlign: 'center', mt: '10vh'}}>
+            <img src={NoCar} alt="nocar" width="250" />
+            <Typography gutterBottom>Car not found.</Typography>
+            {!make && !model && !fuel && !trans && (
+              <Typography gutterBottom>
+                Please choose at least 1 filter parameter
+              </Typography>
+            )}
+          </Box>
+        ) : (
+          data?.map((res) => {
+            const randomInt = Math.floor(Math.random() * 7)
+            return (
               <Box sx={{width: 1 / 4}}>
-                <Skeleton
-                  variant="rounded"
-                  sx={{margin: 1}}
-                  height={300}
-                  key={i}
-                />
-              </Box>
-            ))
-          : data?.map((res) => {
-              const randomInt = Math.floor(Math.random() * 7)
-              return (
-                <Box sx={{width: 1 / 4}}>
-                  <Paper sx={{m: 1}}>
-                    <img
-                      src={`${galeryData[randomInt].img}?w=248&fit=crop&auto=format`}
-                      style={{
-                        width: '100%',
-                        height: 150,
-                        objectFit: 'cover',
+                <Paper sx={{m: 1}}>
+                  <img
+                    src={`${galeryData[randomInt].img}?w=248&fit=crop&auto=format`}
+                    style={{
+                      width: '100%',
+                      height: 150,
+                      objectFit: 'cover',
+                    }}
+                    alt={`${res.year}-${res.make}`}
+                  />
+                  <Box sx={{p: 2}}>
+                    <Typography
+                      sx={{fontSize: 14}}
+                      color="text.secondary"
+                      gutterBottom
+                    >
+                      {res.year}
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      sx={{textTransform: 'capitalize'}}
+                    >
+                      {res.model}
+                    </Typography>
+                    <Typography
+                      sx={{mb: 1, textTransform: 'capitalize'}}
+                      color="text.secondary"
+                    >
+                      {res.make}
+                    </Typography>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
                       }}
-                      alt={`${res.year}-${res.make}`}
-                    />
-                    <Box sx={{p: 2}}>
-                      <Typography
-                        sx={{fontSize: 14}}
-                        color="text.secondary"
-                        gutterBottom
-                      >
-                        {res.year}
+                    >
+                      <Typography variant="body2">
+                        {Transmission[res.transmission]}, {res.class}
                       </Typography>
-                      <Typography
-                        variant="h6"
-                        component="div"
+                      <Chip
+                        label={res.fuel_type}
                         sx={{textTransform: 'capitalize'}}
-                      >
-                        {res.model}
-                      </Typography>
-                      <Typography
-                        sx={{mb: 1, textTransform: 'capitalize'}}
-                        color="text.secondary"
-                      >
-                        {res.make}
-                      </Typography>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                        }}
-                      >
-                        <Typography variant="body2">
-                          {Transmission[res.transmission]}, {res.class}
-                        </Typography>
-                        <Chip
-                          label={res.fuel_type}
-                          sx={{textTransform: 'capitalize'}}
-                          color={FuelType[res.fuel_type]}
-                          size="small"
-                        />
-                      </Box>
+                        color={FuelType[res.fuel_type]}
+                        size="small"
+                      />
                     </Box>
-                  </Paper>
-                </Box>
-              )
-            })}
+                  </Box>
+                </Paper>
+              </Box>
+            )
+          })
+        )}
       </Box>
     </Container>
   )
