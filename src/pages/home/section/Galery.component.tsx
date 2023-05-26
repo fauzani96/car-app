@@ -7,15 +7,27 @@ import {
   Typography,
 } from '@mui/material'
 
+import CorvetteLogo from '../../../assets/images/corvette.svg'
+import FerrariLogo from '../../../assets/images/ferrari.svg'
+import LamborghiniLogo from '../../../assets/images/lamborghini.svg'
+import LexusLogo from '../../../assets/images/lexus.svg'
+import NissanLogo from '../../../assets/images/nissan.svg'
+import TeslaLogo from '../../../assets/images/tesla.svg'
+import ToyotaLogo from '../../../assets/images/toyota.svg'
+
 const Galery = () => {
   return (
     <Box sx={{textAlign: 'center'}}>
-      <Typography variant="h5" gutterBottom sx={{mt: 6}}>
+      <Typography variant="h4" gutterBottom sx={{mt: 8, mb: 4}}>
         Cars Galery
       </Typography>
       <ImageList variant="masonry" cols={3} gap={10}>
         {itemData.map((item) => (
-          <ImageListItem key={item.img}>
+          <ImageListItem
+            key={item.img}
+            onClick={() => alert('hey you clicked!')}
+            sx={{cursor: 'pointer'}}
+          >
             <img
               src={`${item.img}?w=248&fit=crop&auto=format`}
               srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
@@ -27,11 +39,26 @@ const Galery = () => {
         ))}
       </ImageList>
       <Button variant="outlined" size="large">
-        View More
+        See More
       </Button>
+      <Box sx={{display: 'flex', gap: 6, my: 8, justifyContent: 'center'}}>
+        {logoData.map((logo) => (
+          <img src={logo} key={logo} alt="corvette" width="100" />
+        ))}
+      </Box>
     </Box>
   )
 }
+
+const logoData = [
+  CorvetteLogo,
+  FerrariLogo,
+  LamborghiniLogo,
+  LexusLogo,
+  NissanLogo,
+  TeslaLogo,
+  ToyotaLogo,
+]
 
 const itemData = [
   {

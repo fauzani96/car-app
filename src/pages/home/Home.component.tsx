@@ -1,5 +1,6 @@
-import {Box, Button, Container, Typography} from '@mui/material'
+import {Box, Button, Container, Divider, Typography} from '@mui/material'
 import Galery from './section/Galery.component'
+import HowTo from './section/HowTo.component'
 
 const Home = () => {
   return (
@@ -28,6 +29,8 @@ const Home = () => {
         </Button>
       </Box>
       <Galery />
+      <Divider />
+      <HowTo />
     </Container>
   )
 }
