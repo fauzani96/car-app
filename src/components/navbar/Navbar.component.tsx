@@ -137,10 +137,10 @@ function Navbar() {
             ))}
           </Box>
 
-          <Box sx={{flexGrow: 0, gap: 2}}>
-            <IconButton size="large" aria-label="search" color="inherit">
+          <Box sx={{flexGrow: 0}}>
+            {/* <IconButton size="large" aria-label="search" color="inherit">
               <SearchIcon />
-            </IconButton>
+            </IconButton> */}
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                 <Avatar

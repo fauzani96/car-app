@@ -51,11 +51,14 @@ export default function Cars() {
 
   return (
     <Container maxWidth="xl" sx={{minHeight: 'calc(100vh - 120px)', my: 4}}>
-      <Box sx={{display: 'flex', gap: 2, alignItems: 'center', mb: 3}}>
-        <IconButton color="primary" onClick={() => navigate(-1)}>
-          <ArrowBackIcon />
-        </IconButton>
-        <Typography variant="h5">List of cars</Typography>
+      <Box sx={{display: 'flex', justifyContent: 'space-between', mb: 3}}>
+        <Box sx={{display: 'flex', gap: 2, alignItems: 'center'}}>
+          <IconButton color="primary" onClick={() => navigate(-1)}>
+            <ArrowBackIcon />
+          </IconButton>
+          <Typography variant="h5">List of cars</Typography>
+        </Box>
+        <Box>this is filter</Box>
       </Box>
       <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
         {isLoading ? (
