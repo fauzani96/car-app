@@ -1,4 +1,4 @@
-# Carz App
+# Carz App 
 
 A simple project for fulfilling requirement for
 [Finology Group](https://finology-group.com/) recruitment as a Frontend Engineer
@@ -15,6 +15,8 @@ In the project directory, you can run:
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+## Live link: https://car-app-eight.vercel.app/
 
 ##
 
