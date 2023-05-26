@@ -15,6 +15,7 @@ import NissanLogo from '../../../assets/images/nissan.svg'
 import TeslaLogo from '../../../assets/images/tesla.svg'
 import ToyotaLogo from '../../../assets/images/toyota.svg'
 import Marquee from 'react-fast-marquee'
+import {Link} from 'react-router-dom'
 
 const Galery = () => {
   return (
@@ -39,7 +40,7 @@ const Galery = () => {
           </ImageListItem>
         ))}
       </ImageList>
-      <Button variant="outlined" size="large">
+      <Button variant="outlined" size="large" component={Link} to="cars">
         See More
       </Button>
       <Marquee

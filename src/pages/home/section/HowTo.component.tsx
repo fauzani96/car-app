@@ -31,16 +31,18 @@ const HowTo = () => {
           A better way to search for cars
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-          ullamcorper velit id nulla bibendum dictum. Quisque molestie orci
-          nisl. Duis tempor purus urna, suscipit ornare ex elementum faucibus.
-          Sed bibendum, nulla eu ornare efficitur, nibh ex fermentum eros, et
-          ultricies nulla neque pharetra quam. Nam sollicitudin augue vitae erat
-          dapibus, at viverra nisi mattis. Cras nec magna sed diam hendrerit
-          tempus. Fusce condimentum arcu quis elit gravida volutpat. Nam
-          consequat convallis malesuada. Vivamus sed vestibulum neque. Cras
-          tincidunt eget erat facilisis placerat. Quisque in massa in purus
-          faucibus pharetra quis ut nibh.
+          We have created a car database and our goal is for it to contain all
+          kinds of data regarding cars. The purpose of the database is to make
+          the car market more transparent and less complicated. Examples of data
+          are car specifications, classifieds, mileages and reviews. By
+          structuring the data, we want to make it easier to find the right car,
+          make correct car valuations, compare statistics, confirm a car's
+          history and find the right accessories. The target group is everyone
+          that has anything to do with cars, such as owners, buyers and sellers
+          – both consumers and those that in any way work in the industry. We
+          realise that it is a large and extensive task to build a car
+          information website and we greatly appreciate suggestions on how we
+          can improve.
         </Typography>
       </Box>
       <Box sx={{display: 'flex', mt: 4, gap: 4}}>

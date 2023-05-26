@@ -10,8 +10,10 @@ import MenuItem from '@mui/material/MenuItem'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import * as React from 'react'
+import SearchIcon from '@mui/icons-material/Search'
+import {Link} from 'react-router-dom'
 
-const pages = ['Products', 'Pricing', 'Blog']
+const pages = ['cars', 'about', 'blog']
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -106,7 +108,9 @@ function Navbar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                // onClick={handleCloseNavMenu}
+                component={Link}
+                to={page}
                 sx={{my: 2, display: 'block', color: 'white'}}
               >
                 {page}
@@ -115,6 +119,9 @@ function Navbar() {
           </Box>
 
           <Box sx={{flexGrow: 0, gap: 2}}>
+            <IconButton size="large" aria-label="search" color="inherit">
+              <SearchIcon />
+            </IconButton>
             <Button sx={{mr: {lg: 2}, color: 'white'}}>Login</Button>
             <Button variant="contained">Sign Up</Button>
           </Box>
