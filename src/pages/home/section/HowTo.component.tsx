@@ -1,4 +1,4 @@
-import {Box, Typography} from '@mui/material'
+import {Box, Button, TextField, Typography} from '@mui/material'
 import PaletteIcon from '@mui/icons-material/Palette'
 import SettingsIcon from '@mui/icons-material/Settings'
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
@@ -77,6 +77,30 @@ const HowTo = () => {
             </Typography>
           </Box>
         ))}
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          my: 8,
+        }}
+      >
+        <Typography variant="h4" paragraph>
+          Save time, save money
+        </Typography>
+        <Typography variant="h6" color="text.secondary" paragraph>
+          Sign up and we'll send the best deal to you
+        </Typography>
+        <Box sx={{display: 'flex', width: 1 / 2, gap: 2}}>
+          <TextField
+            id="outlined-basic"
+            label="Enter your email address"
+            fullWidth
+            variant="outlined"
+          />
+          <Button variant="contained">Subscribe</Button>
+        </Box>
       </Box>
     </>
   )
