@@ -14,6 +14,7 @@ import LexusLogo from '../../../assets/images/lexus.svg'
 import NissanLogo from '../../../assets/images/nissan.svg'
 import TeslaLogo from '../../../assets/images/tesla.svg'
 import ToyotaLogo from '../../../assets/images/toyota.svg'
+import Marquee from 'react-fast-marquee'
 
 const Galery = () => {
   return (
@@ -41,11 +42,23 @@ const Galery = () => {
       <Button variant="outlined" size="large">
         See More
       </Button>
-      <Box sx={{display: 'flex', gap: 6, my: 8, justifyContent: 'center'}}>
+      <Marquee
+        style={{
+          margin: '42px 0',
+          justifyContent: 'center',
+        }}
+        autoFill
+      >
         {logoData.map((logo) => (
-          <img src={logo} key={logo} alt="corvette" width="100" />
+          <img
+            src={logo}
+            key={logo}
+            alt="corvette"
+            width="100"
+            style={{marginRight: 48}}
+          />
         ))}
-      </Box>
+      </Marquee>
     </Box>
   )
 }

@@ -6,17 +6,17 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
 const HowTo = () => {
   const steps = [
     {
-      icon: <PaletteIcon />,
+      icon: <PaletteIcon fontSize="large" />,
       title: 'Choose model',
       subtitle: 'Lorem ipsum dolor sit amet',
     },
     {
-      icon: <SettingsIcon />,
+      icon: <SettingsIcon fontSize="large" />,
       title: 'Choose location',
       subtitle: 'Lorem ipsum dolor sit amet',
     },
     {
-      icon: <DirectionsCarIcon />,
+      icon: <DirectionsCarIcon fontSize="large" />,
       title: 'Show the car',
       subtitle: 'Lorem ipsum dolor sit amet',
     },
@@ -43,20 +43,34 @@ const HowTo = () => {
           faucibus pharetra quis ut nibh.
         </Typography>
       </Box>
-      <Box sx={{display: 'flex', mt: 4, justifyContent: 'space-between'}}>
+      <Box sx={{display: 'flex', mt: 4, gap: 4}}>
         {steps.map((step, i) => (
           <Box
             key={i}
             sx={{
-              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
               border: 1,
               borderRadius: 2,
               borderColor: 'rgba(0, 0, 0, 0.12)',
               py: 2,
               px: 6,
+              width: 1 / 3,
             }}
           >
-            {step.icon}
+            <Box
+              sx={{
+                bgcolor: 'primary.main',
+                color: 'common.white',
+                borderRadius: 2,
+                p: 1.5,
+                mb: 4,
+              }}
+            >
+              {step.icon}
+            </Box>
+
             <Typography variant="h6">{step.title}</Typography>
             <Typography variant="body1" color="text.secondary">
               {step.subtitle}
