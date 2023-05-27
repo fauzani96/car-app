@@ -10,10 +10,10 @@ import MenuItem from '@mui/material/MenuItem'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import * as React from 'react'
-import {Link, useLocation} from 'react-router-dom'
+import {Link, useNavigate, useLocation} from 'react-router-dom'
 import {Avatar, Tooltip} from '@mui/material'
 
-const pages = ['cars', 'about', 'blog']
+const pages = ['home', 'cars', 'about', 'blog']
 const settings = ['Profile', 'Account', 'Logout']
 
 function Navbar() {
@@ -39,6 +39,8 @@ function Navbar() {
   }
 
   const isHome = location.pathname === '/'
+
+  const navigate = useNavigate()
 
   return (
     <AppBar position="static" color={'transparent'} elevation={0}>
@@ -94,7 +96,13 @@ function Navbar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography
+                    sx={{textTransform: 'capitalize'}}
+                    textAlign="center"
+                    onClick={() => navigate(page === 'home' ? '/' : page)}
+                  >
+                    {page}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -104,7 +112,7 @@ function Navbar() {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: {xs: 'flex', md: 'none'},
@@ -122,9 +130,8 @@ function Navbar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                // onClick={handleCloseNavMenu}
                 component={Link}
-                to={page}
+                to={page === 'home' ? '/' : page}
                 sx={{
                   my: 2,
                   display: 'block',
