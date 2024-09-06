@@ -1,7 +1,5 @@
 # Carz App 
 
-A simple project for fulfilling requirement for
-[Finology Group](https://finology-group.com/) recruitment as a Frontend Engineer
 
 - Currently the only working features is Home and Cars page. 
 - The car list and the image may be different because I don't find any free API services that provide Cars information with images.
